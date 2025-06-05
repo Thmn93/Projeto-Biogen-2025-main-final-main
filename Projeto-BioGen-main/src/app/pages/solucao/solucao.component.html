@@ -1,0 +1,90 @@
+
+<!-- sobre-solucao.component.html -->
+<section class="sobre-solucao">
+  <div class="hero">
+    <div class="container">
+      <h1>Sobre a Solução</h1>
+      <p class="subtitle">Transformando resíduos orgânicos em energia limpa e acessível</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="visao-geral">
+      <h2>Visão Geral</h2>
+      <p>
+        Nossa plataforma integrada conecta fornecedores de resíduos orgânicos, operadores de biodigestores e beneficiários 
+        de baixa renda em um ecossistema sustentável. Através de um sistema completo de gestão, transformamos o que seria 
+        descartado em energia limpa e acessível, contribuindo para um futuro mais sustentável e igualitário.
+      </p>
+    </div>
+
+    <div class="funcionalidades-section">
+      <h2>Principais Funcionalidades</h2>
+      <div class="funcionalidades-grid">
+        <div class="funcionalidade-card" *ngFor="let item of funcionalidades">
+          <div class="icon-container">
+            <i class="fas" [ngClass]="item.icone"></i>
+          </div>
+          <h3>{{item.titulo}}</h3>
+          <p>{{item.descricao}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="beneficios-section">
+      <h2>Benefícios da Solução</h2>
+      <div class="beneficios-container">
+        <div class="beneficio-card" *ngFor="let item of beneficios">
+          <div class="beneficio-header">
+            <i class="fas" [ngClass]="item.icone"></i>
+            <h3>Para {{item.publico}}</h3>
+          </div>
+          <ul>
+            <li *ngFor="let beneficio of item.lista">{{beneficio}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="ods-section">
+      <h2>Objetivos de Desenvolvimento Sustentável</h2>
+      <p class="ods-intro">
+        Nossa solução está alinhada com os Objetivos de Desenvolvimento Sustentável da ONU, 
+        contribuindo diretamente para:
+      </p>
+      <div class="ods-grid">
+        <div class="ods-card" *ngFor="let ods of odsItems">
+          <div class="ods-number">
+            <span>{{ods.numero}}</span>
+          </div>
+          <div class="ods-content">
+            <h3>{{ods.titulo}}</h3>
+            <p>{{ods.descricao}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="impacto-section">
+      <h2>Impacto Social e Ambiental</h2>
+      <div class="impacto-cards">
+        <div class="impacto-card ambiental">
+          <h3>Impacto Ambiental</h3>
+          <ul>
+            <li>Redução da emissão de gases de efeito estufa</li>
+            <li>Diminuição do volume de resíduos orgânicos em aterros sanitários</li>
+            <li>Geração de energia renovável e limpa</li>
+          </ul>
+        </div>
+        <div class="impacto-card social">
+          <h3>Impacto Social</h3>
+          <ul>
+            <li>Acesso à energia para famílias de baixa renda</li>
+            <li>Criação de empregos verdes na cadeia produtiva</li>
+            <li>Promoção da educação ambiental e sustentabilidade</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

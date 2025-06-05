@@ -1,0 +1,106 @@
+<script src="path/to/chartjs/dist/chart.umd.js"></script>
+
+<div class="container">
+  <div class="header-controls">
+    <button (click)="abrirModalGeral()">Lançamentos</button>
+
+
+
+    <!-- Modal Geral -->
+    <div *ngIf="modalGeralAberto" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="fecharModalGeral()">&times;</span>
+        <h2>Adicionar Lançamento - {{ anoAtual }}</h2>
+
+        <form [formGroup]="formularioGeral" (ngSubmit)="aoEnviarGeral()">
+          <div class="form-group">
+            <label for="mesSelecionado">Mês:</label>
+            <select formControlName="mes">
+              <option *ngFor="let mes of meses; let i = index" [value]="mes">{{ mes }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Toneladas Processadas (Ton):</label>
+            <input type="number" formControlName="toneladas" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label>Energia Gerada (KW):</label>
+            <input type="number" formControlName="energia" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label>Imposto Abatido (R$):</label>
+            <input type="number" formControlName="imposto" step="0.01" required>
+          </div>
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+    <!-- Fim do Modal Geral -->
+
+    <div class="year-filter">
+      <label for="yearSelect">Ano:</label>
+      <select [(ngModel)]="anoAtual" (change)="aoMudarAno()">
+        <option *ngFor="let ano of [2022,2023,2024,2025,2026,2027]" [value]="ano">{{ ano }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-container">
+      <canvas id="lineChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Mês/Ano</th>
+        <th>Toneladas Processadas (Ton)</th>
+        <th>Energia Gerada (KW)</th>
+        <th>Imposto Abatido (R$)</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mes of meses; let i = index">
+        <td>{{ mes }}/{{ anoAtual }}</td>
+        <td>{{ dadosPorAno[anoAtual].toneladas[i] || 0 }}</td>
+        <td>{{ dadosPorAno[anoAtual].energia[i] || 0 }}</td>
+        <td>{{ dadosPorAno[anoAtual].imposto[i] || 0 }}</td>
+        <td>
+          <button class="edit" (click)="abrirModal(i)">Editar</button>
+
+          <!-- Modal específico por mês -->
+          <div *ngIf="modalAbertoIndex === i" class="modal">
+            <div class="modal-content">
+              <span class="close" (click)="fecharModal()">&times;</span>
+              <h2>Editar - {{ mes }}/{{ anoAtual }}</h2>
+
+              <form [formGroup]="formularios[i]" (ngSubmit)="aoEnviar(i)">
+                <div class="form-group">
+                  <label>Toneladas Processadas (Ton):</label>
+                  <input type="number" formControlName="toneladas" step="0.01" required>
+                </div>
+                <div class="form-group">
+                  <label>Energia Gerada (KW):</label>
+                  <input type="number" formControlName="energia" step="0.01" required>
+                </div>
+                <div class="form-group">
+                  <label>Imposto Abatido (R$):</label>
+                  <input type="number" formControlName="imposto" step="0.01" required>
+                </div>
+                <button type="submit">Salvar</button>
+              </form>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
